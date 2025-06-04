@@ -1,42 +1,104 @@
 import React from 'react';
-import { ScrollView, FlatList, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { ScrollView, View, FlatList, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
-const cardCommon = {
-    backgroundColor: '#fff',
-    borderWidth: 0.5,
-    borderColor: "#ccc",
-    borderRadius: wp('4%'),
-    shadowColor: '#ccc',
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.6,
-    shadowRadius: 2,
-    elevation: 1,
-};
 
 const HomeScreen = () => {
     const navigation = useNavigation();
 
     const jobData = [
-        { id: '1', title: '프론트엔드 개발자', company: '잡이음 주식회사', location: '서울 강남구', isAiRecommended: true },
-        { id: '2', title: '백엔드 개발자', company: '이음소프트', location: '부산 해운대구', isAiRecommended: true },
-        { id: '3', title: 'AI 연구원', company: 'AIHub Inc.', location: '대전 유성구', isAiRecommended: true },
-        { id: '12', title: '머신러닝 엔지니어', company: '딥러닝랩', location: '서울 서초구', isAiRecommended: true },
-        { id: '13', title: '데이터 사이언티스트', company: '데이터마인드', location: '경기 성남시', isAiRecommended: true },
-        { id: '14', title: 'AI 솔루션 개발자', company: '인텔리전스코', location: '서울 송파구', isAiRecommended: true },
-        { id: '4', title: 'UX 디자이너', company: '디자인팩토리', location: '서울 마포구', isAiRecommended: false },
-        { id: '5', title: 'PM', company: 'PMKorea', location: '서울 종로구', isAiRecommended: false },
-        { id: '6', title: '데이터 엔지니어', company: '데이터주식회사', location: '서울 송파구', isAiRecommended: false },
-        { id: '7', title: 'QA 엔지니어', company: '테스트코리아', location: '서울 구로구', isAiRecommended: false },
-        { id: '8', title: '모바일 앱 개발자', company: '모바일팩토리', location: '서울 성동구', isAiRecommended: false },
-        { id: '9', title: '시스템 엔지니어', company: '시스템랩', location: '부산 진구', isAiRecommended: false },
-        { id: '10', title: '네트워크 엔지니어', company: '네트워크코리아', location: '서울 용산구', isAiRecommended: false },
-        { id: '11', title: '보안 전문가', company: '시큐리티랩', location: '서울 강서구', isAiRecommended: false },
-        { id: '15', title: '웹 퍼블리셔', company: '웹솔루션즈', location: '부산 해운대구', isAiRecommended: false },
-        { id: '16', title: 'IT 컨설턴트', company: '컨설트코리아', location: '대구 중구', isAiRecommended: false },
-        { id: '17', title: '시스템 관리자', company: '시스템넷', location: '광주 북구', isAiRecommended: false },
-        { id: '18', title: '클라우드 엔지니어', company: '클라우드랩', location: '서울 강남구', isAiRecommended: false },
+        {
+            id: '1',
+            title: '프론트엔드 개발자',
+            company: '잡이음 주식회사',
+            location: '서울 강남구',
+            deadline: '2025-06-30',
+            career: '신입/경력',
+            education: '학력무관',
+            isAiRecommended: true,
+        },
+        {
+            id: '2',
+            title: '백엔드 개발자',
+            company: '이음소프트',
+            location: '부산 해운대구',
+            deadline: '2025-07-10',
+            career: '경력 2년 이상',
+            education: '학력무관',
+            isAiRecommended: true,
+        },
+        {
+            id: '3',
+            title: 'AI 연구원',
+            company: 'AIHub Inc.',
+            location: '대전 유성구',
+            deadline: '2025-06-20',
+            career: '박사 우대',
+            education: '학력무관',
+        },
+        {
+            id: '4',
+            title: 'UX 디자이너',
+            company: '디자인팩토리',
+            location: '서울 마포구',
+            deadline: '2025-07-01',
+            career: '신입 가능',
+            education: '학력무관',
+        },
+        {
+            id: '5',
+            title: '프로덕트 매니저(PM)',
+            company: 'PMKorea',
+            location: '서울 종로구',
+            deadline: '2025-06-25',
+            career: '경력 3년 이상',
+            education: '학력무관',
+        },
+        {
+            id: '6',
+            title: '데이터 엔지니어',
+            company: '데이터주식회사',
+            location: '서울 송파구',
+            deadline: '2025-07-15',
+            career: '신입/경력',
+            education: '학력무관',
+        },
+        {
+            id: '7',
+            title: 'QA 엔지니어',
+            company: '테스트코리아',
+            location: '서울 구로구',
+            deadline: '2025-07-05',
+            career: '경력 1년 이상',
+            education: '학력무관',
+        },
+        {
+            id: '8',
+            title: '모바일 앱 개발자',
+            company: '모바일팩토리',
+            location: '서울 성동구',
+            deadline: '2025-06-28',
+            career: '신입 가능',
+            education: '학력무관',
+        },
+        {
+            id: '9',
+            title: '시스템 엔지니어',
+            company: '시스템랩',
+            location: '부산 진구',
+            deadline: '2025-07-03',
+            career: '경력 5년 이상',
+            education: '학력무관',
+        },
+        {
+            id: '10',
+            title: '정보보안 전문가',
+            company: '시큐리티랩',
+            location: '서울 강서구',
+            deadline: '2025-06-27',
+            career: '경력 2년 이상',
+            education: '학력무관',
+        },
     ];
 
     const aiRecommendedJobs = jobData.filter(job => job.isAiRecommended);
@@ -48,17 +110,33 @@ const HomeScreen = () => {
 
     const renderAiJobCard = ({ item }) => (
         <TouchableOpacity onPress={() => handlePress(item)} style={styles.aiCard}>
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.company}>{item.company}</Text>
-            <Text style={styles.location}>{item.location}</Text>
+            <View style={styles.aiCardContent}>
+                <Text style={styles.company}>{item.company}</Text>
+                <Text style={styles.location}>{item.location}</Text>
+                <Text style={styles.title}>{item.title}</Text>
+                <Text style={styles.infoText}>{item.career}</Text>
+                <Text style={styles.infoText}>{item.education}</Text>
+                <Text style={styles.deadline}>마감: {item.deadline}</Text>
+            </View>
         </TouchableOpacity>
     );
 
     const renderGeneralJobCard = ({ item }) => (
         <TouchableOpacity onPress={() => handlePress(item)} style={styles.generalCard}>
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.company}>{item.company}</Text>
-            <Text style={styles.location}>{item.location}</Text>
+            <View style={styles.cardContent}>
+                <View style={styles.header}>
+                    <View style={styles.companyLocation}>
+                        <Text style={styles.company}>{item.company}</Text>
+                        <Text style={styles.location}>{item.location}</Text>
+                    </View>
+                </View>
+                <Text style={styles.title}>{item.title}</Text>
+                <View style={styles.footer}>
+                    <Text style={styles.infoText}>마감: {item.deadline}</Text>
+                    <Text style={styles.infoText}>{item.career}</Text>
+                    <Text style={styles.infoText}>{item.education}</Text>
+                </View>
+            </View>
         </TouchableOpacity>
     );
 
@@ -93,7 +171,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: wp('5%'),
-        paddingTop: hp('3%'),
+        paddingVertical: hp('2%'),
         backgroundColor: '#fff',
     },
     sectionTitle: {
@@ -102,32 +180,73 @@ const styles = StyleSheet.create({
         marginBottom: hp('1.5%'),
     },
     aiCard: {
-        minWidth: wp('50%'),
-        minHeight: hp('20%'),
-        paddingHorizontal: wp('5%'),
-        paddingVertical: hp('3%'),
+        width: wp('50%'),
+        height: wp('40'), // 정사각형
+        backgroundColor: '#fff',
+        borderRadius: wp('4%'),
+        borderWidth: 1,
+        borderColor: '#ddd',
+        padding: wp('4%'),
         marginRight: wp('4%'),
-        ...cardCommon,
+        marginVertical: hp('0.8%'),
+        shadowColor: '#aaa',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     generalCard: {
+        backgroundColor: '#fff',
+        borderRadius: wp('4%'),
+        borderWidth: 1,
+        borderColor: '#ddd',
+        padding: wp('4%'),
+        marginVertical: hp('0.8%'),
+        shadowColor: '#aaa',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
+    },
+    cardContent: {
         flex: 1,
-        paddingHorizontal: wp('5%'),
-        paddingVertical: hp('4%'),
-        marginVertical: hp('0.5%'),
-        ...cardCommon,
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: hp('0.5%'),
+    },
+    companyLocation: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: wp('2%'),
+    },
+    company: {
+        fontSize: wp('4%'),
+        color: '#333',
+    },
+    location: {
+        fontSize: wp('3.5%'),
+        color: '#666',
     },
     title: {
         fontSize: wp('4.5%'),
         fontWeight: 'bold',
+        marginBottom: hp('1%'),
     },
-    company: {
-        fontSize: wp('4%'),
-        color: '#555',
-        marginTop: hp('0.5%'),
+    footer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: wp('2%'),
     },
-    location: {
+    infoText: {
         fontSize: wp('3.5%'),
-        color: '#777',
-        marginTop: hp('0.2%'),
+        color: '#666',
+        marginRight: wp('3%'),
+        marginBottom: hp('0.5%'),
+    },
+    starButton: {
+        padding: wp('1%'),
     },
 });

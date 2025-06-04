@@ -19,7 +19,9 @@ const IMAGES = {
     SCRAP: BookmarksIcon,
     MY: PersonIcon,
     NOTIFICATION: NotificationsIcon,
-    MENU: MenuIcon
+    MENU: MenuIcon,
+
+
 };
 
 export default IMAGES;

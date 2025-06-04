@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createDrawerNavigator, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
-import { Image, Text, TouchableOpacity, View, StyleSheet, TextInput } from 'react-native';
+import { Image, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native'; // ✅ 추가
 
 import SCREENS from '../Screens';
 import IMAGES from '../assets/images';
@@ -11,55 +11,63 @@ import HomeScreen from '../Screens/tabs/HomeScreen';
 import RecommendScreen from '../Screens/tabs/RecommendScreen';
 import JobListScreen from '../Screens/tabs/JobListScreen';
 import ScrapScreen from '../Screens/tabs/ScrapScreen';
-import MyScreen from '../Screens/tabs/MyScreen';
+import MyScreenWrapper from '../Screens/tabs/MyScreenWrapper';
 import NotificationScreen from '../Screens/Pages/NotificationScreen';
+import MenuScreen from '../Screens/Pages/MenuScreen';
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-const Drawer = createDrawerNavigator();
 
-const DrawerNavigation = () => {
+const MainTabWithHeader = () => {
+    const navigation = useNavigation(); // ✅ 여기서 navigation 훅 사용
+
     return (
-        <Drawer.Navigator
-            screenOptions={{
-                drawerPosition: "right",
-                drawerType: "front",
-                drawerStyle: { width: '100%' },
-            }}>
-            <Drawer.Screen name="Main" component={StackNavigation} options={{ headerShown: false }} />
-            <Drawer.Screen name={SCREENS.NOTIFICATION} component={NotificationScreen} options={{ headerRight: () => null, }} />
-        </Drawer.Navigator>
+        <TabNavigator
+            headerRight={
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <TouchableOpacity onPress={() => navigation.navigate(SCREENS.NOTIFICATION)}>
+                        <Image source={IMAGES.NOTIFICATION} style={styles.iconRight} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate(SCREENS.MENU)} style={{ marginRight: 15 }}>
+                        <Image source={IMAGES.MENU} style={styles.iconLeft} />
+                    </TouchableOpacity>
+                </View>
+            }
+        />
     );
 };
 
-const StackNavigation = ({ navigation }) => {
-    return <Stack.Navigator>
-        <Stack.Screen
-            name="MainTab"
-            component={TabNavigator}
-            options={{
-                headerRight: () => (
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+const StackNavigation = () => {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen
+                name="MainTab"
+                component={MainTabWithHeader}
+                options={{
+                    headerRight: () => <MainTabHeader />,
+                    // headerBackTitle: '',
+                }}
+            />
+            <Stack.Screen name={SCREENS.NOTIFICATION} component={NotificationScreen} />
+            <Stack.Screen name={SCREENS.MENU} component={MenuScreen} />
+        </Stack.Navigator>
+    );
+};
 
-                        <TouchableOpacity onPress={() => navigation.navigate(SCREENS.NOTIFICATION)}>
-                            <Image
-                                source={IMAGES.NOTIFICATION}
-                                style={styles.iconRight}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => navigation.openDrawer()} style={{ marginRight: 15 }}>
-                            <Image
-                                source={IMAGES.MENU}
-                                style={styles.iconLeft}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                ),
+const MainTabHeader = () => {
+    const navigation = useNavigation();
 
-            }}
-        />
-        <Stack.Screen name={SCREENS.NOTIFICATION} component={NotificationScreen} />
-    </Stack.Navigator>
+    return (
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <TouchableOpacity onPress={() => navigation.navigate(SCREENS.NOTIFICATION)}>
+                <Image source={IMAGES.NOTIFICATION} style={styles.iconRight} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate(SCREENS.MENU)} style={{ marginRight: 15 }}>
+                <Image source={IMAGES.MENU} style={styles.iconLeft} />
+            </TouchableOpacity>
+        </View>
+    );
 };
 
 const TabNavigator = () => {
@@ -77,7 +85,6 @@ const TabNavigator = () => {
                     ...tabBarStyleOptions,
                 }}
             />
-
             <Tab.Screen
                 name={SCREENS.RECOMMEND}
                 component={RecommendScreen}
@@ -90,8 +97,6 @@ const TabNavigator = () => {
                     ...tabBarStyleOptions,
                 }}
             />
-
-
             <Tab.Screen
                 name={SCREENS.JOBLIST}
                 component={JobListScreen}
@@ -104,8 +109,6 @@ const TabNavigator = () => {
                     ...tabBarStyleOptions,
                 }}
             />
-
-
             <Tab.Screen
                 name={SCREENS.SCRAP}
                 component={ScrapScreen}
@@ -118,11 +121,9 @@ const TabNavigator = () => {
                     ...tabBarStyleOptions,
                 }}
             />
-
-
             <Tab.Screen
                 name={SCREENS.MY}
-                component={MyScreen}
+                component={MyScreenWrapper}
                 options={{
                     title: 'MY',
                     tabBarIcon: ({ focused }) => (
@@ -132,11 +133,9 @@ const TabNavigator = () => {
                     ...tabBarStyleOptions,
                 }}
             />
-
         </Tab.Navigator>
     );
-}
-
+};
 
 const styles = StyleSheet.create({
     iconLeft: {
@@ -148,17 +147,6 @@ const styles = StyleSheet.create({
         width: 25,
         height: 25,
         marginRight: 15,
-    },
-    searchContainer: {
-        flex: 1,
-        backgroundColor: 'white',
-        borderRadius: 10,
-        paddingHorizontal: 10,
-        height: 35,
-        justifyContent: 'center',
-    },
-    searchInput: {
-        fontSize: 16,
     },
 });
 
@@ -173,5 +161,4 @@ const tabBarStyleOptions = {
     tabBarInactiveTintColor: COLORS.GRAY_LIGHT,
 };
 
-
-export default DrawerNavigation;
+export default StackNavigation;

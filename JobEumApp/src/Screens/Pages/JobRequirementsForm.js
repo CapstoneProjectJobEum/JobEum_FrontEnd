@@ -1,7 +1,6 @@
 import React from 'react';
 import { ScrollView, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Checkbox from 'expo-checkbox';
-import axios from 'axios';
 import { useForm, Controller } from 'react-hook-form';
 import COLORS from "../../constants/colors";
 
@@ -24,8 +23,7 @@ const disabilityGrades = ['심한 장애', '심하지 않은 장애', '정보 �
 const workTypesList = [
     '재택근무 가능', '사무실 출근 가능', '파트타임 선호', '풀타임 선호', '시간제 가능'
 ];
-
-const PersonalInfoForm = () => {
+const JobRequirementsForm = ({ navigation, route }) => {
     const { control, handleSubmit } = useForm({
         defaultValues: {
             disabilityTypes: [],
@@ -36,29 +34,16 @@ const PersonalInfoForm = () => {
         }
     });
 
-    const toggleArrayItem = (array, item) => {
-        if (array.includes(item)) {
-            return array.filter(i => i !== item);
-        } else {
-            return [...array, item];
-        }
-    };
+    const toggleArrayItem = (array, item) => (
+        array.includes(item) ? array.filter(i => i !== item) : [...array, item]
+    );
 
-    const onSubmit = async (data) => {
-        console.log('전송 데이터:', data);
-
-        try {
-            const res = await axios.post('http://10.107.0.76:4000/api/user-profile', data);
-            console.log('전송 성공:', res.data);
-        } catch (error) {
-            if (error.response) {
-                console.error('응답 오류:', error.response.status, error.response.data);
-            } else if (error.request) {
-                console.error('요청은 보냈지만 응답 없음:', error.request);
-            } else {
-                console.error('기타 오류:', error.message);
-            }
+    const onSubmit = (data) => {
+        const { onSubmitConditions } = route.params || {};
+        if (onSubmitConditions) {
+            onSubmitConditions(data); // 👉 AddJobScreen으로 데이터 전달
         }
+        navigation.goBack(); // 👉 이전 화면으로 이동
     };
 
     const renderCheckboxGroup = (name, list) => (
@@ -139,72 +124,34 @@ const PersonalInfoForm = () => {
             {renderCheckboxGroup('jobInterest', jobInterestList)}
 
             <TouchableOpacity style={styles.button} onPress={handleSubmit(onSubmit)}>
-                <Text style={styles.btnfont}>수정하기</Text>
+                <Text style={styles.btnfont}>확인하기</Text>
             </TouchableOpacity>
         </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        padding: 20,
-        backgroundColor: '#fff',
-    },
-    sectionTitle: {
-        fontWeight: 'bold',
-        fontSize: 18,
-        marginBottom: 8,
-        marginTop: 20,
-        color: 'black',
-    },
-    checkboxGroup: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'flex-start',
-        gap: 10,
-    },
+    container: { padding: 20, backgroundColor: '#fff' },
+    sectionTitle: { fontWeight: 'bold', fontSize: 18, marginBottom: 8, marginTop: 20, color: 'black' },
+    checkboxGroup: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', gap: 10 },
     checkboxContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        paddingHorizontal: 10,
-        paddingVertical: 10,
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: '#ddd',
-        backgroundColor: '#fafafa',
+        flexDirection: 'row', alignItems: 'center',
+        paddingHorizontal: 10, paddingVertical: 10,
+        borderRadius: 8, borderWidth: 1,
+        borderColor: '#ddd', backgroundColor: '#fafafa',
     },
-    checkboxSelected: {
-        borderColor: COLORS.THEMECOLOR,
-    },
+    checkboxSelected: { borderColor: COLORS.THEMECOLOR },
     checkbox: {
-        opacity: 0,
-        position: 'absolute',
-        width: 0,
-        height: 0,
-        marginLeft: -15,
+        opacity: 0, position: 'absolute', width: 0, height: 0, marginLeft: -15,
     },
-    checkboxLabel: {
-        fontSize: 14,
-        color: 'black',
-        textAlign: 'center',
-    },
-    checkboxLabelSelected: {
-        color: COLORS.THEMECOLOR,
-        fontWeight: 'bold',
-    },
+    checkboxLabel: { fontSize: 14, color: 'black', textAlign: 'center' },
+    checkboxLabelSelected: { color: COLORS.THEMECOLOR, fontWeight: 'bold' },
     button: {
         backgroundColor: COLORS.THEMECOLOR,
-        borderRadius: 8,
-        paddingVertical: 14,
-        alignItems: "center",
-        marginTop: 10,
-        marginBottom: 20,
+        borderRadius: 8, paddingVertical: 14,
+        alignItems: "center", marginTop: 10, marginBottom: 20,
     },
-    btnfont: {
-        color: "#fff",
-        fontWeight: "bold",
-        fontSize: 16,
-    },
+    btnfont: { color: "#fff", fontWeight: "bold", fontSize: 16 },
 });
 
-export default PersonalInfoForm;
+export default JobRequirementsForm;

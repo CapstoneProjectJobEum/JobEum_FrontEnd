@@ -71,7 +71,7 @@ const LoginScreen = () => {
                 console.log("로그인 성공:", result);
                 // 예: 토큰 저장
                 // await AsyncStorage.setItem('token', result.token);
-                navigation.navigate("RouteScreen");
+                navigation.navigate(SCREENS.MY, { userType });
             } else {
                 alert(result.message || '아이디 또는 비밀번호를 확인하세요.');
             }
@@ -145,7 +145,7 @@ const LoginScreen = () => {
                 .then((res) => res.json())
                 .then((data) => {
                     console.log("서버 응답:", data);
-                    navigation.navigate("RouteScreen");
+                    navigation.navigate(SCREENS.MY, { userType });
                 })
                 .catch((err) => {
                     console.error("서버 오류:", err);
@@ -168,7 +168,7 @@ const LoginScreen = () => {
                 .then((res) => res.json())
                 .then((data) => {
                     console.log("서버 응답:", data);
-                    navigation.navigate("RouteScreen");
+                    navigation.navigate(SCREENS.MY, { userType });
                 })
                 .catch((err) => {
                     console.error("서버 오류:", err);
@@ -191,7 +191,7 @@ const LoginScreen = () => {
     //             .then((res) => res.json())
     //             .then((data) => {
     //                 console.log("서버 응답:", data);
-    //                 navigation.navigate("RouteScreen");
+    //                 navigation.navigate(SCREENS.MY, { userType });
     //             })
     //             .catch((err) => {
     //                 console.error("서버 오류:", err);
@@ -221,10 +221,7 @@ const LoginScreen = () => {
                         홈화면 이동 임시 버튼
                     </Text>
                 </TouchableOpacity>
-                <Text style={{ fontSize: 28, fontWeight: "bold", marginTop: 100, marginBottom: 40 }}>
-                    JobEum
-                </Text>
-                {/* <View style={styles.typeSelector}>
+                <View style={styles.typeSelector}>
                     <TouchableOpacity
                         style={[
                             styles.typeButton,
@@ -259,7 +256,7 @@ const LoginScreen = () => {
                             기업
                         </Text>
                     </TouchableOpacity>
-                </View> */}
+                </View>
 
                 <View style={styles.loginContainer}>
                     {/* 아이디 입력창 */}
@@ -304,13 +301,8 @@ const LoginScreen = () => {
                         )}
                     </View>
 
+                    {/* 로그인 버튼 */}
                     <TouchableOpacity
-                        style={styles.loginbtn}
-                        onPress={handleLogin}
-                    >
-                        <Text style={styles.btnfont}>로그인</Text>
-                    </TouchableOpacity>
-                    {/* <TouchableOpacity
                         style={styles.loginbtn}
                         onPress={handleLogin}
                         accessibilityLabel={`${userType} 로그인 버튼`}
@@ -318,7 +310,7 @@ const LoginScreen = () => {
                         <Text style={styles.btnfont}>
                             {userType === "회원" ? "회원 로그인" : "기업 로그인"}
                         </Text>
-                    </TouchableOpacity> */}
+                    </TouchableOpacity>
 
 
                 </View>

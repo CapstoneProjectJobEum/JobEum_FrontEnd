@@ -6,7 +6,8 @@ const SCREENS = {
     JOBLIST: 'JOBLIST',
     SCRAP: 'SCRAP',
     MY: 'MY',
-    NOTIFICATION: 'NOTIFICATION'
+    NOTIFICATION: 'NOTIFICATION',
+    MENU: 'MENU',
 };
 
 export default SCREENS;

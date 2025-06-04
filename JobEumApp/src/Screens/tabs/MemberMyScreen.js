@@ -13,11 +13,11 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import PersonalInfoForm from '../Pages/PersonalInfoForm';
 
 const buttonData = [
-    'MY홈', '이력서 관리', '최근 본 공고', '지원 현황', '관심 기업', '맞춤정보설정', '설정'
+    'MY홈', '이력서 관리', '최근 본 공고', '지원 현황', '관심 공고', '관심 기업', '맞춤정보설정', '설정'
 ];
 
-const MyScreen = () => {
-    const [selectedTab, setSelectedTab] = useState(null); // 어떤 버튼이 눌렸는지
+const MemberMyScreen = () => {
+    const [selectedTab, setSelectedTab] = useState('MY홈'); // 기본 선택 탭 지정
 
     const renderButton = (label) => {
         const isSelected = selectedTab === label;
@@ -43,11 +43,8 @@ const MyScreen = () => {
         );
     };
 
-
     const renderContent = () => {
         switch (selectedTab) {
-            case '맞춤정보설정':
-                return <PersonalInfoForm />;
             case 'MY홈':
                 return <Text style={styles.pageContent}>MY홈 콘텐츠</Text>;
             case '이력서 관리':
@@ -56,14 +53,14 @@ const MyScreen = () => {
                 return <Text style={styles.pageContent}>최근 본 공고 콘텐츠</Text>;
             case '지원 현황':
                 return <Text style={styles.pageContent}>지원 현황 콘텐츠</Text>;
+            case '관심 공고':
+                return <Text style={styles.pageContent}>관심 공고 콘텐츠</Text>;
             case '관심 기업':
                 return <Text style={styles.pageContent}>관심 기업 콘텐츠</Text>;
             case '맞춤정보설정':
                 return <PersonalInfoForm />;
             case '설정':
                 return <Text style={styles.pageContent}>설정 콘텐츠</Text>;
-
-            // 필요 시 다른 탭도 추가 가능
             default:
                 return null;
         }
@@ -92,7 +89,7 @@ const MyScreen = () => {
     );
 };
 
-export default MyScreen;
+export default MemberMyScreen;
 
 const styles = StyleSheet.create({
     safeArea: {

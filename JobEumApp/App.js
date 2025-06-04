@@ -12,14 +12,11 @@ import HomeScreen from './src/Screens/tabs/HomeScreen';
 import JobListScreen from './src/Screens/tabs/JobListScreen';
 import JobDetailScreen from './src/Screens/Pages/JobDetailScreen';
 import PersonalInfoForm from './src/Screens/Pages/PersonalInfoForm';
+import NotificationScreen from './src/Screens/Pages/NotificationScreen';
+import MenuScreen from './src/Screens/Pages/MenuScreen';
+import AddJobScreen from './src/Screens/Pages/AddJobScreen';
+import JobRequirementsForm from './src/Screens/Pages/JobRequirementsForm';
 
-
-// 이후에 사용할 스크린들 (임시로 주석 처리 가능)
-// import AuthenticationScreen from './...';
-// import GuestScreen from './...';
-// import RouteScreen from './...';
-// import HomeScreen from './...';
-// ... 기타 스크린
 
 const Stack = createNativeStackNavigator();
 
@@ -86,17 +83,36 @@ const App = () => {
               component={PersonalInfoForm}
               options={{ headerShown: true }}
             />
+            <Stack.Screen
+              name="NotificationScreen"
+              component={NotificationScreen}
+              options={{ headerShown: true }}
+            />
+            <Stack.Screen
+              name="MenuScreen"
+              component={MenuScreen}
+              options={{ headerShown: true }}
+            />
+
+
+            <Stack.Screen
+              name="AddJobScreen"
+              component={AddJobScreen}
+              options={{
+                headerShown: true,
+              }}
+            />
+
+            <Stack.Screen
+              name="JobRequirementsForm"
+              component={JobRequirementsForm}
+              options={{
+                headerShown: true,
+              }}
+            />
 
 
 
-
-            {/* 나중에 추가될 스크린들
-            <Stack.Screen name="AuthenticationScreen" component={AuthenticationScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="GuestScreen" component={GuestScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="RouteScreen" component={RouteScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
-            ...
-            */}
           </Stack.Navigator>
         </NavigationContainer>
       )}

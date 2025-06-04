@@ -19,9 +19,11 @@
     "axios": "^1.9.0",
     "expo": "~53.0.9",
     "expo-auth-session": "^6.1.5",
+    "expo-checkbox": "~4.1.4",
     "expo-status-bar": "~2.2.3",
     "expo-web-browser": "^14.1.6",
     "react": "19.0.0",
+    "react-hook-form": "^7.57.0",
     "react-native": "0.79.2",
     "react-native-gesture-handler": "^2.25.0",
     "react-native-reanimated": "^3.17.5",
@@ -30,8 +32,7 @@
     "react-native-screens": "^4.10.0",
     "react-native-splash-screen": "^3.3.0",
     "react-native-vector-icons": "^10.2.0",
-    "react-native-webview": "^13.13.5",
-    "expo-checkbox": "~4.1.4"
+    "react-native-webview": "^13.13.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
